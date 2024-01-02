@@ -25,7 +25,9 @@ namespace nsDataRemoting {
         /// </summary>
         public int Satus { get; set; }
     }
-
+    /// <summary>
+    /// Callback handler to process data change event
+    /// </summary>
     public class CallbackHandler : MarshalByRefObject {
         /// <summary>
         /// EventHandler for the callback method

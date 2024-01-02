@@ -33,25 +33,25 @@ namespace nsDataRemoting {
     /// </summary>
     public class DataRemotingClient : MarshalByRefObject {
         /// <summary>
-        /// Called by adapters' Initialize method. Should return true for successful initialization 
+        /// Called by adapters' Initialize method
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True for successful initialization</returns>
         public bool Initialize() => false;
         /// <summary>
-        /// Called by adapters' AttemptConnection method. Should return true for successful connection 
+        /// Called by adapters' AttemptConnection method
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True for successful connection</returns>
         public bool Connect() => false;
         /// <summary>
-        /// Called by adapters' OnConnected method. Should return true for successful subscription 
+        /// Called by adapters' OnConnected method 
         /// </summary>
         /// <param name="sa">Array of required parameters</param>
-        /// <returns></returns>
+        /// <returns>True for successful subscription</returns>
         public bool CreateGroup(string[] sa) => false;
         /// <summary>
-        /// Called by adapters' AttemptDisconnection method. Should return true for successful disconnection 
+        /// Called by adapters' AttemptDisconnection method 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True for successful disconnection</returns>
         public bool Disconnect() => false;
         /// <summary>
         /// Called by adapters' Dispose method. To release any unmanaged resource used on the server side 
