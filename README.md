@@ -4,6 +4,7 @@ The OpenHistorian (https://github.com/GridProtectionAlliance/openHistorian) univ
 The typical application is OPC DA (https://github.com/Rotabor/OpcDaAgent). Using with OPC DA remote server, this adapter helps to resolve access rights conflict and 32/64bit incompatibility.
 
 **Concept**
+
 ![openHistorian Web Interface](https://github.com/Rotabor/OpenHistorianRemoteDataAdapter/blob/master/GitHubResources/OpenHistorianDataRemotingAdapter.png)
 
 **Disclaimer**: This code is provided as is, without any warranty or obligation. It requires you to have knowledge of C# programming, openHistorian and other products/libraries/technologies in use. It has to be compiled.
