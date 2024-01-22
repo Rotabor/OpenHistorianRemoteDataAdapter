@@ -31,22 +31,9 @@ namespace nsOpenHistorianRemoteDataAdapter {
         Timer _tmr; bool _connected, _reconreq;
         string _remotehost, _port; int _renewaltime;
 
-        public RemoteDataAdapter() {
+        public RemoteDataAdapter() : base() {
             // the only parameter to read is log's path
             _cfg = ConfigurationManager.OpenExeConfiguration(Assembly.GetExecutingAssembly().Location);
-            // required connection string is 'remotehost=THEHOST;port=XXXXX'
-            // optional 'renewaltime=YY', defaults is 30 s
-            _renewaltime = MySponsor.RenewalTime; ParseConnectionString(); MySponsor.RenewalTime = _renewaltime;
-            RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
-            RemotingConfiguration.ApplicationName = "DataRemote";
-            RemotingConfiguration.RegisterActivatedServiceType(typeof(CallbackHandler));
-            // the same port is used for inbound and outboun conctions
-            ActivatedClientTypeEntry myActivatedClientTypeEntry =
-                new ActivatedClientTypeEntry(typeof(DataRemotingClient),
-                $"tcp://{_remotehost}:{_port}/{RemotingConfiguration.ApplicationName}");
-            RemotingConfiguration.RegisterActivatedClientType(myActivatedClientTypeEntry);
-            // callback to receive data
-            CallbackHandler.OnDataChangedEh += OnDataChanged;
         }
 
         /// <summary>
@@ -70,6 +57,19 @@ namespace nsOpenHistorianRemoteDataAdapter {
         public override void Initialize() {
             bool result = false;
             try {
+                // required connection string is 'remotehost=THEHOST;port=XXXXX'
+                // optional 'renewaltime=YY', defaults is 30 s
+                _renewaltime = MySponsor.RenewalTime; ParseConnectionString(); MySponsor.RenewalTime = _renewaltime;
+                RemotingConfiguration.CustomErrorsMode = CustomErrorsModes.Off;
+                RemotingConfiguration.ApplicationName = "DataRemote";
+                RemotingConfiguration.RegisterActivatedServiceType(typeof(CallbackHandler));
+                // the same port is used for inbound and outboun conctions
+                ActivatedClientTypeEntry myActivatedClientTypeEntry =
+                    new ActivatedClientTypeEntry(typeof(DataRemotingClient),
+                    $"tcp://{_remotehost}:{_port}/{RemotingConfiguration.ApplicationName}");
+                RemotingConfiguration.RegisterActivatedClientType(myActivatedClientTypeEntry);
+                // callback to receive data
+                CallbackHandler.OnDataChangedEh += OnDataChanged;
                 // own log is used
                 Trace.Listeners.Clear(); TraceInit(); base.Initialize(); App.TraceMsg($"Initialize with: {ConnectionString}"); ProcessingInterval = 0;
                 OnStatusMessage(MessageLevel.Info, $"Initialising remote data source for device {Name}");
